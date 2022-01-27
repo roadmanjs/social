@@ -1,0 +1,30 @@
+# OSX
+#
+.DS_Store
+
+# Firebase
+serviceAccountKey.json*
+firebase.config.js*
+firebase.config.ts*
+firebase.config.json*
+*secret.js*
+*secret.ts*
+service.account.json*
+
+
+# Backend
+.idea/
+node_modules/
+build/
+dist/
+dist-client/
+tmp/
+temp/
+keys/
+*.env
+
+# Web
+npm-debug.*
+*.jks
+*.p12
+*.key
