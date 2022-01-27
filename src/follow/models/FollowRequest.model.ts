@@ -1,4 +1,4 @@
-import {Field, InputType, Model, ObjectType} from 'couchset';
+import {Field, InputType, ObjectType} from 'couchset';
 
 InputType('FollowRequestInput');
 ObjectType();

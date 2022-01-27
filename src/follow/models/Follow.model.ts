@@ -18,3 +18,5 @@ export class Follow {
     // not important for now or never
     // show_reblogs?: boolean;
 }
+
+export const FollowModel = new Model(Follow.name, {graphqlType: Follow});
