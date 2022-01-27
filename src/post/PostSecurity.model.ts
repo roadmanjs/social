@@ -14,4 +14,3 @@ export class PostSecurity {
     closeDate: Date; // or just use internal createdAt in couchset
     info: any; // any additional info for this symbol
 };
-
