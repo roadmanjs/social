@@ -1,6 +1,6 @@
 {
     "name": "@roadmanjs/social",
-    "version": "0.0.0",
+    "version": "0.0.1",
     "description": "A roadman for posts, comments, reactions, notifications",
     "main": "dist/index.js",
     "types": "dist/index.d.ts",
@@ -19,7 +19,7 @@
     "private": false,
     "scripts": {
         "lint": "tslint \"src/**/*.ts\" --project tsconfig.json",
-        "build": "rm -rf dist && tsc --skipLibCheck && npm run client",
+        "build": "rm -rf dist && tsc --skipLibCheck",
         "client": "node dist/scripts/copyClient.js",
         "test": "mocha src/*test.ts --exit",
         "eslint": "eslint ./src --fix --ext=ts"
