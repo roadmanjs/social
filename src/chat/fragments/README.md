@@ -1,1 +1,0 @@
-# Only for client query graphql-tags
