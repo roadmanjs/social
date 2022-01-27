@@ -1,5 +1,10 @@
 import { Field, InputType, ObjectType } from "couchset";
 
+/**
+ * Just for records, 
+ * Querying will be done by another package
+ * e.g Hashtags can be queried from this package not an external package.
+ */
 @InputType("PostSecurity")
 @ObjectType()
 export class PostSecurity {

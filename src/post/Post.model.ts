@@ -30,7 +30,7 @@ export class Post {
     secIds: PostSecurity[]; // a list of securities in this post, stocks, cryptos, options e.t.c
     attachments: string[]; // TODO PostAttachment
     urls: string[]; // TODO PostLink
-    
+    hashtags: string[];
     // ARRAYS end here
 
 }
