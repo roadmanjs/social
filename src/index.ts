@@ -1,9 +1,3 @@
-import {CommentDefaultResolver} from './comment/Comment.model';
-import {PostDefaultResolver} from './post/model/Post.model';
-import {ReactionDefaultResolver} from './reaction/Reaction.model';
+import {PostResolver} from './post/resolver/Post.resolver';
 
-export const getSocialResolvers = () => [
-    CommentDefaultResolver,
-    PostDefaultResolver,
-    ReactionDefaultResolver,
-];
+export const getSocialResolvers = () => [PostResolver];
