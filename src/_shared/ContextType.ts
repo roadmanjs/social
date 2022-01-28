@@ -38,7 +38,7 @@ export interface GeoLocationType {
 //     });
 
 @ObjectType()
-export class ChatResType {
+export class SocialResType {
     @Field(() => Boolean)
     success: boolean;
 
@@ -64,4 +64,8 @@ export const getPagination = <T>(c: T): any => {
         params?: any;
     }
     return Pagination;
+};
+
+export const getClassKeys = (ClassModelType: any) => {
+    return Object.getOwnPropertyNames(new ClassModelType());
 };

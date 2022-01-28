@@ -1,24 +1,19 @@
 import {log} from '@roadmanjs/logs';
 import {awaitTo} from '@stoqey/client-graphql';
-import {
-    Resolver,
-    Query,
-    UseMiddleware,
-    Mutation,
-    Arg,
-    isAuth,
-    ResType,
-    ResTypeFragment,
-} from 'couchset';
-import {Post, PostFragment, PostModel, PostModelKeys} from '../model/Post.model';
+import {Resolver, Query, UseMiddleware, Mutation, Arg, isAuth, ResTypeFragment} from 'couchset';
+import {Post, PostFragment, PostModel} from '../model/Post.model';
 import gql from 'graphql-tag';
+import {getPagination, getClassKeys, SocialResType} from '../../_shared/ContextType';
+
+const PostPagination = getPagination(Post);
+const PostModelKeys = getClassKeys(Post);
 
 /**
  *  ----------------------------- CLIENT GQL BEGIN -----------------------------
  */
 export const QUERY_POST = gql`
-    query Posts {
-        posts(filter: String, owner: String, page: Number, limit: Number) {
+    query Posts($filter: String, $owner: String!, $page: Number, $limit: Number) {
+        posts(filter: $filter, owner: $owner, page: $page, limit: $limit) {
             ...PostFragment
         }
     }
@@ -26,30 +21,30 @@ export const QUERY_POST = gql`
 `;
 
 export const MUTATION_POST_DELETE = gql`
-     query PostDelete{
-         postDelete(id: !String, owner: !String){
-             ...ResTypeFragment
-         }
-     }
-     ${ResTypeFragment}
+    mutation PostDelete($id: String!) {
+        postDelete(id: $id) {
+            ...SocialResTypeFragment
+        }
+    }
+    ${ResTypeFragment}
 `;
 
 export const MUTATION_POST_CHANGE_VISIBILITY = gql`
-     query PostChangeVisibility{
-         postChangeVisibility(id: !String, visibility: !String){
-             ...ResTypeFragment
-         }
-     }
-     ${ResTypeFragment}
+    mutation PostChangeVisibility($id: String!, $visibility: String!) {
+        postChangeVisibility(id: $id, visibility: $visibility) {
+            ...SocialResTypeFragment
+        }
+    }
+    ${ResTypeFragment}
 `;
 
 export const MUTATION_POST_CREATE = gql`
-     query PostCreate{
-         postCreate(args: !PostInput){
-             ...ResTypeFragment
-         }
-     }
-     ${ResTypeFragment}
+    mutation PostCreate($args: PostInput!) {
+        postCreate(args: $args) {
+            ...SocialResTypeFragment
+        }
+    }
+    ${ResTypeFragment}
 `;
 /**
  * ----------------------------- CLIENT GQL END -----------------------------
@@ -58,13 +53,13 @@ export const MUTATION_POST_CREATE = gql`
 @Resolver()
 export class PostResolver {
     // QUERY_POST
-    @Query(() => [Post])
+    @Query(() => PostPagination)
     @UseMiddleware(isAuth)
     async posts(
-        @Arg('filter', {nullable: true}) filter: string,
-        @Arg('owner') owner: string, // TODO use from context and not args
-        @Arg('page', {nullable: true}) page: number,
-        @Arg('limit', {nullable: true}) limit: number
+        @Arg('filter', () => String, {nullable: true}) filter: string,
+        @Arg('owner', () => String, {nullable: false}) owner: string, // TODO use from context and not args
+        @Arg('page', () => Number, {nullable: true}) page: number,
+        @Arg('limit', () => Number, {nullable: true}) limit: number
     ): Promise<Post[]> {
         try {
             const wherers: any = {
@@ -87,9 +82,11 @@ export class PostResolver {
         }
     }
 
-    @Mutation(() => ResType)
+    @Mutation(() => SocialResType)
     @UseMiddleware(isAuth)
-    async postDelete(@Arg('id', {nullable: false}) id: string): Promise<ResType> {
+    async postDelete(
+        @Arg('id', () => String, {nullable: false}) id: string
+    ): Promise<SocialResType> {
         try {
             // TODO check if we own this, just pass context and fetch this object before delete
             // Since isAuth already provides owner or current loggedin user
@@ -107,12 +104,12 @@ export class PostResolver {
         }
     }
 
-    @Mutation(() => ResType)
+    @Mutation(() => SocialResType)
     @UseMiddleware(isAuth)
     async postChangeVisibility(
-        @Arg('id', {nullable: false}) id: string,
-        @Arg('visibility', {nullable: false}) visibility: string
-    ): Promise<ResType> {
+        @Arg('id', () => String, {nullable: false}) id: string,
+        @Arg('visibility', () => String, {nullable: false}) visibility: string
+    ): Promise<SocialResType> {
         try {
             const [err, adToEdit] = await awaitTo(PostModel.findById(id));
             if (err) {
@@ -140,9 +137,11 @@ export class PostResolver {
         }
     }
 
-    @Mutation(() => ResType)
+    @Mutation(() => SocialResType)
     @UseMiddleware(isAuth)
-    async postCreate(@Arg('args') args: Post): Promise<ResType> {
+    async postCreate(
+        @Arg('args', () => Post, {nullable: false}) args: Post
+    ): Promise<SocialResType> {
         try {
             // If updating
             const createdOrUpdate = await PostModel.create({

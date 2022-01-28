@@ -22,8 +22,8 @@ export const PostFragment = gql`
     }
 `;
 
-ObjectType();
 InputType('PostInput');
+ObjectType();
 export class Post {
     @Field(() => String, {nullable: false, description: 'The account that posted this'})
     accountId = ''; // userId
@@ -93,10 +93,3 @@ export class Post {
 }
 
 export const PostModel = new Model(Post.name, {graphqlType: Post});
-
-export const {
-    resolver: PostDefaultResolver, // there's going to be other custom resolvers
-    pagination: PostPagination,
-    client: PostClient,
-    modelKeys: PostModelKeys,
-} = PostModel.automate();
