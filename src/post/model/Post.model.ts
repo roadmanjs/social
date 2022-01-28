@@ -92,4 +92,6 @@ export class Post {
     // ARRAYS end here
 }
 
-export const PostModel = new Model(Post.name, {graphqlType: Post});
+export const PostModel = new Model('Post');
+
+export default Post;
