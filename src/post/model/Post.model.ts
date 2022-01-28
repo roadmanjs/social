@@ -22,7 +22,7 @@ export const PostFragment = gql`
     }
 `;
 
-ObjectType();
+ObjectType()
 export class Post {
     @Field(() => String, {nullable: false})
     accountId: string; // userId

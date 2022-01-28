@@ -1,10 +1,10 @@
 import {log} from '@roadmanjs/logs';
 import {awaitTo} from '@stoqey/client-graphql';
-import {Resolver, Query, UseMiddleware, Mutation, Arg, ResTypeFragment, Ctx} from 'couchset';
+import {Resolver, Query, UseMiddleware, Mutation, Arg, ResTypeFragment, Ctx, getPagination} from 'couchset';
 import {isAuth} from '@roadmanjs/auth';
 import Post, {PostInput, PostFragment, PostModel} from '../model/Post.model';
 import gql from 'graphql-tag';
-import {getPagination, getClassKeys, SocialResType, ContextType} from '../../_shared/ContextType';
+import {getClassKeys, SocialResType, ContextType} from '../../_shared/ContextType';
 
 const PostPagination = getPagination(Post);
 const PostModelKeys = getClassKeys(Post);

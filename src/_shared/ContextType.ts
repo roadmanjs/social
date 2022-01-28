@@ -46,21 +46,21 @@ export class SocialResType {
     message?: string;
 
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    @Field((type) => GraphQLJSON, {nullable: true})
+    @Field((_type) => GraphQLJSON, {nullable: true})
     data?: any;
 }
 
 export const getPagination = <T>(c: T): any => {
     @ObjectType(`${(c as any).name}Pagination`)
     class Pagination {
-        @Field(() => [c], {nullable: true})
+        @Field((_type) => [c], {nullable: true})
         items: [typeof c];
 
         @Field(() => Boolean, {nullable: true})
         hasNext?: boolean;
 
         // eslint-disable-next-line @typescript-eslint/no-unused-vars
-        @Field((type) => GraphQLJSON, {nullable: true})
+        @Field((_type) => GraphQLJSON, {nullable: true})
         params?: any;
     }
     return Pagination;
