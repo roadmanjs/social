@@ -4,4 +4,4 @@
 </p>
 
 
-## A Roadman for social media, to be moved to cediverse when ready
+## A Roadman for social media
