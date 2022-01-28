@@ -22,25 +22,22 @@ export const PostFragment = gql`
     }
 `;
 
-InputType('PostInput');
 ObjectType();
 export class Post {
-    @Field(() => String, {nullable: false, description: 'The account that posted this'})
+    @Field(() => String, {nullable: false})
     accountId: string; // userId
 
     @Field(() => String, {
         nullable: false,
-        description: 'HTML code WYSIWYG editor or some markdown',
     })
     text: string;
 
     @Field(() => String, {
         nullable: false,
-        description: 'Reply to another post, just like a quote tweet',
     })
     replyToId: string; // if reply post
 
-    @Field(() => String, {nullable: true, description: 'Like if re-posted, or retweeted'})
+    @Field(() => String, {nullable: true})
     parentId?: string;
 
     @Field(() => Boolean, {nullable: true})
@@ -49,19 +46,16 @@ export class Post {
     // TODO should be an enum when am sure about all cases
     @Field(() => String, {
         nullable: true,
-        description: 'Visibility of a post, set by OP',
     })
     visibility?: string; // "draft" "private", "public", "friends/followers"
 
     @Field(() => String, {
         nullable: true,
-        description: 'Feeds catchy title if lengthy post',
     })
     spoilerText?: string;
 
     @Field(() => String, {
         nullable: true,
-        description: 'If people can reply to it',
     })
     reply?: boolean; // anyone can quote back or repost.
 
@@ -88,6 +82,14 @@ export class Post {
     // urls: string[]; // TODO PostLink
     // hashtags: string[];
     // ARRAYS end here
+}
+
+@InputType()
+export class PostInput {
+    @Field(() => String, {nullable: true})
+    id: string;
+
+    // TODO inject others for create update
 }
 
 export const PostModel = new Model('Post');

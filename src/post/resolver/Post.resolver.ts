@@ -2,7 +2,7 @@ import {log} from '@roadmanjs/logs';
 import {awaitTo} from '@stoqey/client-graphql';
 import {Resolver, Query, UseMiddleware, Mutation, Arg, ResTypeFragment, Ctx} from 'couchset';
 import {isAuth} from '@roadmanjs/auth';
-import Post, {PostFragment, PostModel} from '../model/Post.model';
+import Post, {PostInput, PostFragment, PostModel} from '../model/Post.model';
 import gql from 'graphql-tag';
 import {getPagination, getClassKeys, SocialResType, ContextType} from '../../_shared/ContextType';
 
@@ -53,7 +53,6 @@ export const MUTATION_POST_CREATE = gql`
 
 @Resolver()
 export class PostResolver {
-    // QUERY_POST
     @Query(() => PostPagination)
     @UseMiddleware(isAuth)
     async posts(
@@ -139,10 +138,9 @@ export class PostResolver {
     }
 
     @Mutation(() => SocialResType)
-    @UseMiddleware(isAuth)
     async postCreate(
         @Ctx() _ctx: ContextType,
-        @Arg('args', () => Post, {nullable: true}) args: Post
+        @Arg('args', () => PostInput, {nullable: true}) args: PostInput
     ): Promise<SocialResType> {
         try {
             // If updating
