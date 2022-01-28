@@ -26,56 +26,54 @@ InputType('PostInput');
 ObjectType();
 export class Post {
     @Field(() => String, {nullable: false, description: 'The account that posted this'})
-    accountId = ''; // userId
+    accountId: string; // userId
 
     @Field(() => String, {
         nullable: false,
         description: 'HTML code WYSIWYG editor or some markdown',
     })
-    text = '';
+    text: string;
 
     @Field(() => String, {
         nullable: false,
         description: 'Reply to another post, just like a quote tweet',
     })
-    replyToId = ''; // if reply post
+    replyToId: string; // if reply post
 
-    @Field(() => String, {nullable: true, description: 'Like if reposted, or retweeted'})
-    parentId?: string = '';
+    @Field(() => String, {nullable: true, description: 'Like if re-posted, or retweeted'})
+    parentId?: string;
 
-    @Field(() => Boolean, {nullable: true, defaultValue: false})
-    sensitive?: boolean = false;
+    @Field(() => Boolean, {nullable: true})
+    sensitive?: boolean;
 
     // TODO should be an enum when am sure about all cases
     @Field(() => String, {
         nullable: true,
-        defaultValue: 'draft',
         description: 'Visibility of a post, set by OP',
     })
-    visibility?: string = 'draft'; // "draft" "private", "public", "friends/followers"
+    visibility?: string; // "draft" "private", "public", "friends/followers"
 
     @Field(() => String, {
         nullable: true,
         description: 'Feeds catchy title if lengthy post',
     })
-    spoilerText?: string = '';
+    spoilerText?: string;
 
     @Field(() => String, {
         nullable: true,
-        defaultValue: true,
         description: 'If people can reply to it',
     })
-    reply = true; // anyone can quote back or repost.
+    reply?: boolean; // anyone can quote back or repost.
 
-    @Field(() => String, {nullable: true, defaultValue: 'en'})
-    language?: string = '';
+    @Field(() => String, {nullable: true})
+    language?: string;
 
     @Field(() => Date, {nullable: true})
-    editedAt?: Date = new Date();
+    editedAt?: Date;
 
     // Just count
     @Field(() => Number, {nullable: true})
-    reactions = 0;
+    reactions?: number;
 
     // TODO when enum completed
     // Reaction count by types

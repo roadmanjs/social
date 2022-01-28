@@ -2,7 +2,7 @@ import {log} from '@roadmanjs/logs';
 import {awaitTo} from '@stoqey/client-graphql';
 import {Resolver, Query, UseMiddleware, Mutation, Arg, ResTypeFragment, Ctx} from 'couchset';
 import {isAuth} from '@roadmanjs/auth';
-import {Post, PostFragment, PostModel} from '../model/Post.model';
+import Post, {PostFragment, PostModel} from '../model/Post.model';
 import gql from 'graphql-tag';
 import {getPagination, getClassKeys, SocialResType, ContextType} from '../../_shared/ContextType';
 
