@@ -1,7 +1,7 @@
 import {Field, InputType, Model, ObjectType} from 'couchset';
 
-ObjectType();
-InputType('CommentInput');
+@InputType('CommentInput')
+@ObjectType()
 export class Comment {
     @Field(() => String, {nullable: false, description: 'The account that posted this'})
     accountId = ''; // userId
