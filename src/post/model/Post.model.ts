@@ -3,6 +3,8 @@ import {Field, InputType, Model, ObjectType} from 'couchset';
 
 import gql from 'graphql-tag';
 
+export const PostModelName = 'Post';
+
 export const PostFragment = gql`
     fragment PostFragment on Post {
         id
@@ -22,7 +24,8 @@ export const PostFragment = gql`
     }
 `;
 
-ObjectType()
+@InputType('PostInput')
+@ObjectType()
 export class Post {
     @Field(() => String, {nullable: false})
     accountId: string; // userId
@@ -84,14 +87,6 @@ export class Post {
     // ARRAYS end here
 }
 
-@InputType()
-export class PostInput {
-    @Field(() => String, {nullable: true})
-    id: string;
-
-    // TODO inject others for create update
-}
-
-export const PostModel = new Model('Post');
+export const PostModel = new Model(PostModelName);
 
 export default Post;

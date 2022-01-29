@@ -1,12 +1,13 @@
 import {log} from '@roadmanjs/logs';
 import {awaitTo} from '@stoqey/client-graphql';
-import {Resolver, Query, UseMiddleware, Mutation, Arg, ResTypeFragment, Ctx, getPagination} from 'couchset';
+import {Resolver, Query, UseMiddleware, Mutation, Arg, ResTypeFragment, Ctx} from 'couchset';
 import {isAuth} from '@roadmanjs/auth';
-import Post, {PostInput, PostFragment, PostModel} from '../model/Post.model';
+import {Post, PostFragment, PostModel} from '../model/Post.model';
 import gql from 'graphql-tag';
-import {getClassKeys, SocialResType, ContextType} from '../../_shared/ContextType';
+import {getClassKeys, SocialResType, ContextType, getPagination} from '../../_shared/ContextType';
 
 const PostPagination = getPagination(Post);
+
 const PostModelKeys = getClassKeys(Post);
 
 /**
@@ -140,7 +141,7 @@ export class PostResolver {
     @Mutation(() => SocialResType)
     async postCreate(
         @Ctx() _ctx: ContextType,
-        @Arg('args', () => PostInput, {nullable: true}) args: PostInput
+        @Arg('args', () => Post, {nullable: true}) args: Post
     ): Promise<SocialResType> {
         try {
             // If updating
