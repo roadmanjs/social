@@ -3,11 +3,11 @@ import {Field, InputType, Model, ObjectType} from 'couchset';
 @InputType('CommentInput')
 @ObjectType()
 export class Comment {
-    @Field(() => String, {nullable: false, description: 'The account that posted this'})
+    @Field(() => String, {nullable: true, description: 'The account that posted this'})
     accountId = ''; // userId
 
     @Field(() => String, {
-        nullable: false,
+        nullable: true,
         description: 'HTML code WYSIWYG editor or some markdown',
     })
     text = '';

@@ -5,17 +5,17 @@ export type Reactions = 'like' | 'dislike' | 'cry' | 'laugh'; // e.t.c to add an
 @ObjectType()
 @InputType('ReactionInput')
 export class Reaction {
-    @Field(() => String, {nullable: false, description: 'The account that posted this'})
+    @Field(() => String, {nullable: true, description: 'The account that posted this'})
     accountId = ''; // userId
 
     // TODO enum when POC completed
     @Field(() => String, {
-        nullable: false,
+        nullable: true,
         description: 'Reply to another post, just like a quote tweet',
     })
     reaction = ''; // if reply post
 
-    @Field(() => String, {nullable: false})
+    @Field(() => String, {nullable: true})
     postId = '';
 
     // ... createdAt, updatedAt, id are all added by couchset
