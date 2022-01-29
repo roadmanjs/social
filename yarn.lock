@@ -293,15 +293,15 @@
     dotenv "^8.2.0"
     lodash "^4.17.20"
 
-"@roadmanjs/couchset@^0.0.4":
-  version "0.0.4"
-  resolved "https://registry.yarnpkg.com/@roadmanjs/couchset/-/couchset-0.0.4.tgz#0f7972bd9a84abf47340b4957da081343845a8d7"
-  integrity sha512-X1cQd8Azu5Y9+CzAlqO3b149UpfHVT5eDHCFh9zAd0IDwcYGB0S8wgnqvtYymwnJYbZXmISAK5UkoRvP9AsLiQ==
+"@roadmanjs/couchset@^0.0.5":
+  version "0.0.5"
+  resolved "https://registry.yarnpkg.com/@roadmanjs/couchset/-/couchset-0.0.5.tgz#7622d51a48964ef911c929ba7268ae9615f61689"
+  integrity sha512-dyGfH2wSDI54hcS3aCIAXfiQe6sknsNdvH4GJ2nXHD43Fi/fDBooaVB7YB6tnwlSYfY+G23bCL1jLkgtwyviwA==
   dependencies:
     "@roadmanjs/core" "^0.0.3"
     "@stoqey/client-graphql" "^1.1.12"
     chalk "^4.1.0"
-    couchset "^0.0.11"
+    couchset "^0.0.14"
     debug "^4.3.1"
     dotenv "^8.2.0"
     lodash "^4.17.20"
@@ -1109,12 +1109,41 @@ couchbase@^3.2.1:
     parse-duration "^1.0.0"
     prebuild-install "^6.1.4"
 
+couchbase@^3.2.4:
+  version "3.2.4"
+  resolved "https://registry.yarnpkg.com/couchbase/-/couchbase-3.2.4.tgz#ba879c02a5079cd8487bc0fe2fb8d5d397678c5d"
+  integrity sha512-Tp1o7ARj1U4WtYoSaKo3PBzNEurbqizwLxe+em7LlwfWDyf1WxGUUFu1Gy7okq3CFZPFdtUUMAh++oDJu/piVA==
+  dependencies:
+    bindings "^1.5.0"
+    debug "^4.3.2"
+    nan "^2.15.0"
+    parse-duration "^1.0.0"
+    prebuild-install "^6.1.4"
+
 couchset@^0.0.11:
   version "0.0.11"
   resolved "https://registry.yarnpkg.com/couchset/-/couchset-0.0.11.tgz#fd726ddf3d7b345d472ccd59dc915dd48d63295a"
   integrity sha512-e8Cs5dO+VE4aVg3XoxmlFBfHQzIsW4TP2zFsOomf4Ru2lZ0i/wRW/hCFQn/py9iGZIR+0MjbeAPkDFhsS+77cQ==
   dependencies:
     couchbase "^3.2.1"
+    debug "^4.3.1"
+    dotenv "^10.0.0"
+    graphql "^15.6.0"
+    graphql-redis-subscriptions "^2.4.0"
+    graphql-tag "^2.12.5"
+    graphql-type-json "^0.3.2"
+    jsonwebtoken "^8.5.1"
+    lodash "^4.17.20"
+    ts-morph "^12.0.0"
+    type-graphql "^1.1.1"
+    uuid "^8.3.2"
+
+couchset@^0.0.14:
+  version "0.0.14"
+  resolved "https://registry.yarnpkg.com/couchset/-/couchset-0.0.14.tgz#2b22d42c21a3a6489a7a1ce159ede5996ab4471c"
+  integrity sha512-7ZEpPEHp2lS/EaMTf/cDMgPx2lzdDbDZFrQg3d2MikUomjMN8iR226h/MDeQoU1QZfWmLyoE2BAbqQ3ZhuD4gw==
+  dependencies:
+    couchbase "^3.2.4"
     debug "^4.3.1"
     dotenv "^10.0.0"
     graphql "^15.6.0"
