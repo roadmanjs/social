@@ -45,3 +45,14 @@ export const PostFragment = gql`
         updatedAt
     }
 `;
+
+export const PostPaginationFragment = gql`
+    fragment PostPaginationFragment on PostPagination {
+        items {
+            ...PostFragment
+        }
+        hasNext
+        params
+    }
+    ${PostFragment}
+`;
