@@ -75,6 +75,25 @@ export class Post {
     // ARRAYS end here
 }
 
+// TODO add for public when public and none public is defined
+export const postSelectors = [
+    'id',
+    'owner',
+    'text',
+    'replyToId',
+    'parentId',
+    'sensitive',
+    'visibility',
+    'spoilerText',
+    'reply',
+    'language',
+    'editedAt',
+    'reactions',
+    'attachments',
+    'createdAt',
+    'updatedAt',
+];
+
 export const PostModel = new Model(PostModelName);
 
 export default Post;

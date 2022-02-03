@@ -2,12 +2,10 @@ import {log} from '@roadmanjs/logs';
 import {awaitTo} from '@stoqey/client-graphql';
 import {Resolver, Query, UseMiddleware, Mutation, Arg, Ctx, createUpdate} from 'couchset';
 import {isAuth} from '@roadmanjs/auth';
-import {Post, PostModel} from '../model/Post.model';
-import {getClassKeys, SocialResType, ContextType, getPagination} from '../../_shared/ContextType';
+import {Post, PostModel, postSelectors} from '../model/Post.model';
+import {SocialResType, ContextType, getPagination} from '../../_shared/ContextType';
 
 const PostPagination = getPagination(Post);
-
-const PostModelKeys = getClassKeys(Post);
 
 @Resolver()
 export class PostResolver {
@@ -27,7 +25,7 @@ export class PostResolver {
                 // visibility: {$neq: "draft"} // TODO for public or fetch my current user posts
             };
 
-            const selectors = PostModelKeys;
+            const selectors = postSelectors;
 
             const data = await PostModel.pagination({
                 select: selectors,
