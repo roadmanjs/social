@@ -1,56 +1,13 @@
 import {log} from '@roadmanjs/logs';
 import {awaitTo} from '@stoqey/client-graphql';
-import {Resolver, Query, UseMiddleware, Mutation, Arg, ResTypeFragment, Ctx} from 'couchset';
+import {Resolver, Query, UseMiddleware, Mutation, Arg, Ctx} from 'couchset';
 import {isAuth} from '@roadmanjs/auth';
-import {Post, PostFragment, PostModel} from '../model/Post.model';
-import gql from 'graphql-tag';
+import {Post, PostModel} from '../model/Post.model';
 import {getClassKeys, SocialResType, ContextType, getPagination} from '../../_shared/ContextType';
 
 const PostPagination = getPagination(Post);
 
 const PostModelKeys = getClassKeys(Post);
-
-/**
- *  ----------------------------- CLIENT GQL BEGIN -----------------------------
- */
-export const QUERY_POST = gql`
-    query Posts($filter: String, $owner: String!, $page: Number, $limit: Number) {
-        posts(filter: $filter, owner: $owner, page: $page, limit: $limit) {
-            ...PostFragment
-        }
-    }
-    ${PostFragment}
-`;
-
-export const MUTATION_POST_DELETE = gql`
-    mutation PostDelete($id: String!) {
-        postDelete(id: $id) {
-            ...SocialResTypeFragment
-        }
-    }
-    ${ResTypeFragment}
-`;
-
-export const MUTATION_POST_CHANGE_VISIBILITY = gql`
-    mutation PostChangeVisibility($id: String!, $visibility: String!) {
-        postChangeVisibility(id: $id, visibility: $visibility) {
-            ...SocialResTypeFragment
-        }
-    }
-    ${ResTypeFragment}
-`;
-
-export const MUTATION_POST_CREATE = gql`
-    mutation PostCreate($args: PostInput!) {
-        postCreate(args: $args) {
-            ...SocialResTypeFragment
-        }
-    }
-    ${ResTypeFragment}
-`;
-/**
- * ----------------------------- CLIENT GQL END -----------------------------
- */
 
 @Resolver()
 export class PostResolver {
