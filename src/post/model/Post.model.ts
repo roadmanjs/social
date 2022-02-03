@@ -61,7 +61,7 @@ export class Post {
     // secIds: PostSecurity[]; // a list of securities in this post, stocks, cryptos, options e.t.c
 
     @Field(() => [String], {nullable: true})
-    attachments: string[]; // TODO PostAttachment, with caption, for now just string url
+    attachments?: string[]; // TODO PostAttachment, with caption, for now just string url
 
     // urls: string[]; // TODO PostLink
     // hashtags: string[];
