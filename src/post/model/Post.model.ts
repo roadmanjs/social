@@ -14,9 +14,9 @@ export class Post {
     text: string;
 
     @Field(() => String, {
-        nullable: false,
+        nullable: true,
     })
-    replyToId: string; // if reply post
+    replyToId?: string; // if reply post
 
     @Field(() => String, {nullable: true})
     parentId?: string;
