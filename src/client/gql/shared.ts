@@ -6,8 +6,8 @@ export interface ResType {
     data?: any;
 }
 
-export const ResTypeFragment = gql`
-    fragment ResTypeFragment on ResType {
+export const SocialResTypeFragment = gql`
+    fragment SocialResTypeFragment on ResType {
         success
         message
         data
