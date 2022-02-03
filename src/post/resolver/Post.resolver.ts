@@ -11,6 +11,8 @@ const PostModelKeys = getClassKeys(Post);
 
 @Resolver()
 export class PostResolver {
+    // TODO myPosts and public posts
+
     @Query(() => PostPagination)
     @UseMiddleware(isAuth)
     async posts(
@@ -22,6 +24,7 @@ export class PostResolver {
         try {
             const wherers: any = {
                 owner: {$eq: owner},
+                // visibility: {$neq: "draft"} // TODO for public or fetch my current user posts
             };
 
             const selectors = PostModelKeys;
