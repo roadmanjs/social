@@ -109,7 +109,6 @@ export class PostResolver {
                 data: {
                     ...args,
                 },
-                owner: args.accountId, // add the owner property to match indexes internal
                 ...args, // id if exists
             });
 

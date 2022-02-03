@@ -13,7 +13,7 @@ export class Post {
     updatedAt?: Date;
 
     @Field(() => String, {nullable: false})
-    accountId: string; // userId
+    owner?: string; // userId
 
     @Field(() => String, {
         nullable: false,
