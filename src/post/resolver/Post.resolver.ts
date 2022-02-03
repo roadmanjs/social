@@ -1,6 +1,6 @@
 import {log} from '@roadmanjs/logs';
 import {awaitTo} from '@stoqey/client-graphql';
-import {Resolver, Query, UseMiddleware, Mutation, Arg, Ctx} from 'couchset';
+import {Resolver, Query, UseMiddleware, Mutation, Arg, Ctx, createUpdate} from 'couchset';
 import {isAuth} from '@roadmanjs/auth';
 import {Post, PostModel} from '../model/Post.model';
 import {getClassKeys, SocialResType, ContextType, getPagination} from '../../_shared/ContextType';
@@ -14,7 +14,7 @@ export class PostResolver {
     @Query(() => PostPagination)
     @UseMiddleware(isAuth)
     async posts(
-        @Arg('filter', () => String, {nullable: true}) filter: string,
+        @Arg('filter', () => String, {nullable: true}) filter: string, // TODO filters
         @Arg('owner', () => String, {nullable: false}) owner: string, // TODO use from context and not args
         @Arg('page', () => Number, {nullable: true}) page: number,
         @Arg('limit', () => Number, {nullable: true}) limit: number
@@ -101,13 +101,13 @@ export class PostResolver {
         @Arg('args', () => Post, {nullable: true}) args: Post
     ): Promise<SocialResType> {
         try {
-            // If updating
-            const createdOrUpdate = await PostModel.create({
+            const createdOrUpdate = await createUpdate({
                 model: PostModel,
                 data: {
                     ...args,
                 },
-                ...args, // id and owner if it exists
+                owner: args.accountId, // add the owner property to match indexes internal
+                ...args, // id if exists
             });
 
             if (createdOrUpdate) {
