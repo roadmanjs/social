@@ -77,6 +77,7 @@
         "@roadmanjs/couchset": "^0.0.5",
         "@roadmanjs/firebase-admin": "^0.0.4",
         "@roadmanjs/logs": "^0.0.1",
+        "@roadmanjs/utils": "^0.0.4",
         "@stoqey/client-graphql": "^1.1.12",
         "graphql-type-json": "^0.3.2",
         "jsonwebtoken": "^8.5.1",

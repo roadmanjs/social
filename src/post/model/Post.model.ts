@@ -1,28 +1,6 @@
-// Database model and a graphql fragment
 import {Field, InputType, Model, ObjectType} from 'couchset';
 
-import gql from 'graphql-tag';
-
 export const PostModelName = 'Post';
-
-export const PostFragment = gql`
-    fragment PostFragment on Post {
-        id
-        accountId
-        text
-        replyToId
-        parentId
-        sensitive
-        visibility
-        spoilerText
-        reply
-        language
-        editedAt
-        reactions
-        createdAt
-        updatedAt
-    }
-`;
 
 @InputType('PostInput')
 @ObjectType()

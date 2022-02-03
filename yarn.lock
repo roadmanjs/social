@@ -329,6 +329,13 @@
     dotenv "^8.2.0"
     lodash "^4.17.20"
 
+"@roadmanjs/utils@^0.0.4":
+  version "0.0.4"
+  resolved "https://registry.yarnpkg.com/@roadmanjs/utils/-/utils-0.0.4.tgz#7c3a0c9ca11ce40803fca53433ceb76fd8f4daf1"
+  integrity sha512-+0Z+t2OwzVXsYAUE5Fcf1OCSjMSuLj4CAxV3oWWhVt8YqV29h65MyVnY+MbIXx/QUJem/O+kcWIGbDJeJx7Yfg==
+  dependencies:
+    shelljs "^0.8.5"
+
 "@stoqey/client-graphql@^1.1.12":
   version "1.1.12"
   resolved "https://registry.yarnpkg.com/@stoqey/client-graphql/-/client-graphql-1.1.12.tgz#bf9524bf6b8ef39cba37399d0bde32bb2456e6fa"
