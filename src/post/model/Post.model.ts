@@ -81,7 +81,10 @@ export class Post {
 
     // TODO record when close price, to be used to compare when post was posted.
     // secIds: PostSecurity[]; // a list of securities in this post, stocks, cryptos, options e.t.c
-    // attachments: string[]; // TODO PostAttachment
+
+    @Field(() => [String], {nullable: true})
+    attachments: string[]; // TODO PostAttachment, with caption, for now just string url
+
     // urls: string[]; // TODO PostLink
     // hashtags: string[];
     // ARRAYS end here
