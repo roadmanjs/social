@@ -1,5 +1,11 @@
 import gql from 'graphql-tag';
 
+export interface PostPagination {
+    items: Post[];
+    hasNext?: boolean;
+    params?: any; // queries args
+}
+
 export interface Post {
     accountId: string;
     text: string;
