@@ -5,6 +5,13 @@ export const PostModelName = 'Post';
 @InputType('PostInput')
 @ObjectType()
 export class Post {
+    @Field(() => String, {nullable: true})
+    id?: string;
+    @Field(() => Date, {nullable: true})
+    createdAt?: Date;
+    @Field(() => Date, {nullable: true})
+    updatedAt?: Date;
+
     @Field(() => String, {nullable: false})
     accountId: string; // userId
 
