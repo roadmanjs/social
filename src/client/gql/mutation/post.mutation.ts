@@ -1,7 +1,7 @@
 import {SocialResTypeFragment} from '../shared';
 import gql from 'graphql-tag';
 
-export const MUTATION_POST_DELETE = gql`
+export const POST_DELETE_MUTATION = gql`
     mutation PostDelete($id: String!) {
         postDelete(id: $id) {
             ...SocialResTypeFragment
@@ -10,7 +10,7 @@ export const MUTATION_POST_DELETE = gql`
     ${SocialResTypeFragment}
 `;
 
-export const MUTATION_POST_CHANGE_VISIBILITY = gql`
+export const POST_CHANGE_VISIBILITY_MUTATION = gql`
     mutation PostChangeVisibility($id: String!, $visibility: String!) {
         postChangeVisibility(id: $id, visibility: $visibility) {
             ...SocialResTypeFragment
@@ -19,7 +19,7 @@ export const MUTATION_POST_CHANGE_VISIBILITY = gql`
     ${SocialResTypeFragment}
 `;
 
-export const MUTATION_POST_CREATE = gql`
+export const POST_CREATE_MUTATION = gql`
     mutation PostCreate($args: PostInput!) {
         postCreate(args: $args) {
             ...SocialResTypeFragment
