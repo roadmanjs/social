@@ -4,7 +4,7 @@ import {Field, InputType, Model, ObjectType} from 'couchset';
 @ObjectType()
 export class Comment {
     @Field(() => String, {nullable: true, description: 'The account that posted this'})
-    accountId = ''; // userId
+    owner = ''; // userId
 
     @Field(() => String, {
         nullable: true,

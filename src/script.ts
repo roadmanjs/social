@@ -1,4 +1,15 @@
-import {DirArg, buildDirs, createClientPackageJson} from '@roadmanjs/utils';
+// @ts-nocheck
+import 'reflect-metadata';
+
+import {Comment, CommentClient} from './comment/Comment.model';
+import {
+    DirArg,
+    MorpheusArgs,
+    buildDirs,
+    createClientPackageJson,
+    createInterfaceFromClass,
+    writeAllFilesToProject,
+} from '@roadmanjs/utils';
 
 // Automatically run this
 (async () => {
@@ -15,6 +26,15 @@ import {DirArg, buildDirs, createClientPackageJson} from '@roadmanjs/utils';
         {cmd: 'cp', dir: 'dist/client/index.js.map', newDir: 'dist-client/index.js.map'},
     ];
 
+    // copy/create files for dist-client, e.g comments gql
+    // export comments gql
+    const commentClientFragment = createInterfaceFromClass(Comment);
+    const morphArgs: MorpheusArgs = {
+        filename: 'Comment.fragment',
+        consts: [{name: 'CommentFragment', value: CommentClient.FRAGMENT}],
+        interfaces: [commentClientFragment]
+    };
+
     buildDirs(args);
 
     await createClientPackageJson({
@@ -27,4 +47,6 @@ import {DirArg, buildDirs, createClientPackageJson} from '@roadmanjs/utils';
             files: ['index.d.ts', 'docs/', '/gql', 'register/', 'LICENSE'],
         },
     });
+
+    await writeAllFilesToProject([morphArgs], '.', 'dist-client/gql/query');
 })();
