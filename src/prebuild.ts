@@ -1,20 +1,24 @@
 import 'reflect-metadata';
 
-import {Comment, CommentClient, CommentPagination} from './comment/Comment.model';
-import {MorpheusArgs, createInterfaceFromClass, writeAllFilesToProject} from '@roadmanjs/utils';
-import {Reaction, ReactionClient, ReactionPagination} from './reaction/Reaction.model';
+import {Comment, CommentClient} from './comment/Comment.model';
+import {
+    InterfaceDefinition,
+    MorpheusArgs,
+    createInterfaceFromClass,
+    writeAllFilesToProject,
+} from '@roadmanjs/utils';
+import {Reaction, ReactionClient} from './reaction/Reaction.model';
 
 import flatten from 'lodash/flatten';
 
 // Automatically run this before building
 (async () => {
     const clients: any[] = [
-        {name: 'Comment', client: CommentClient, fragment: Comment, pagination: CommentPagination},
+        {name: 'Comment', client: CommentClient, fragment: Comment},
         {
             name: 'Reaction',
             client: ReactionClient,
             fragment: Reaction,
-            pagination: ReactionPagination,
         },
     ];
 
@@ -23,11 +27,18 @@ import flatten from 'lodash/flatten';
             const clientName = client.name;
             const ClientValue = client.client[key];
             const clientFragmentValue: any = client.fragment;
-            const clientPaginationValue: any = client.pagination;
 
             if (key === 'FRAGMENT') {
                 const clientFragment = createInterfaceFromClass(clientFragmentValue);
-                const clientPagination = createInterfaceFromClass(clientPaginationValue);
+                const clientPagination: InterfaceDefinition = {
+                    name: `${clientName}Pagination`,
+                    properties: [
+                        {name: 'items?', type: `${clientName}[]` as any},
+                        {name: 'hasNext?', type: 'boolean'},
+                        {name: 'params?', type: 'object'},
+                    ],
+                };
+
                 const contentFrag: MorpheusArgs = {
                     filename: `${clientName}.fragment`,
                     consts: [{name: `${clientName}Fragment`, value: ClientValue}],

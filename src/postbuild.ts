@@ -1,22 +1,9 @@
 import 'reflect-metadata';
 
-import {Comment, CommentClient} from './comment/Comment.model';
-import {
-    DirArg,
-    MorpheusArgs,
-    buildDirs,
-    createClientPackageJson,
-    createIndexExports,
-    createInterfaceFromClass,
-    writeAllFilesToProject,
-} from '@roadmanjs/utils';
-import {Reaction, ReactionClient} from './reaction/Reaction.model';
-
-import flatten from 'lodash/flatten';
+import {DirArg, buildDirs, createClientPackageJson} from '@roadmanjs/utils';
 
 // Automatically run this
 (async () => {
-
     const args: DirArg[] = [
         {cmd: 'rm', dir: 'dist-client'},
         {cmd: 'mkdir', dir: 'dist-client'},
