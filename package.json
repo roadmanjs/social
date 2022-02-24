@@ -21,7 +21,7 @@
         "lint": "tslint \"src/**/*.ts\" --project tsconfig.json",
         "build": "rm -rf dist && tsc --skipLibCheck && npm run client",
         "client": "node dist/script.js",
-        "client-ts": "ts-node src/script.ts",
+        "prebuild": "ts-node src/prebuild.ts",
         "test": "mocha src/*test.ts --exit",
         "eslint": "eslint ./src --fix --ext=ts"
     },
@@ -76,7 +76,7 @@
         "@roadmanjs/couchset": "^0.0.6",
         "@roadmanjs/firebase-admin": "^0.0.11",
         "@roadmanjs/logs": "^0.0.1",
-        "@roadmanjs/utils": "^0.0.6",
+        "@roadmanjs/utils": "^0.0.8",
         "@stoqey/client-graphql": "^1.1.12",
         "graphql-type-json": "^0.3.2",
         "jsonwebtoken": "^8.5.1",

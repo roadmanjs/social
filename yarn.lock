@@ -354,10 +354,10 @@
   dependencies:
     shelljs "^0.8.5"
 
-"@roadmanjs/utils@^0.0.6":
-  version "0.0.6"
-  resolved "https://registry.yarnpkg.com/@roadmanjs/utils/-/utils-0.0.6.tgz#42db34015067cd2eb7cafd5aadbd1ebdb90c75cb"
-  integrity sha512-a17ASqMXgvF00586pizpsoF5tCQZ0kjp4yMXVY3le1tPNEGYIHSYQaUqi4VDKqkRLM4ab1vjncraKPka6BrCsw==
+"@roadmanjs/utils@^0.0.8":
+  version "0.0.8"
+  resolved "https://registry.yarnpkg.com/@roadmanjs/utils/-/utils-0.0.8.tgz#d7d96e1abe8cc41742370d112be360c3c21c43a3"
+  integrity sha512-MmmXIewmVokH79BDAVhjhUD7VNARHqdWCjtdd4xkGfPexHJ9QwJykuMll9qdhIcfhxi+vTpPXIi+Kxlgeoy0ig==
   dependencies:
     shelljs "^0.8.5"
     ts-morph "^13.0.3"

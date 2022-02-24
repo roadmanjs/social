@@ -6,7 +6,7 @@ export type Reactions = 'like' | 'dislike' | 'cry' | 'laugh'; // e.t.c to add an
 @InputType('ReactionInput')
 export class Reaction {
     @Field(() => String, {nullable: true, description: 'The account that posted this'})
-    accountId = ''; // userId
+    owner = ''; // userId
 
     // TODO enum when POC completed
     @Field(() => String, {
