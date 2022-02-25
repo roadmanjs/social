@@ -1,43 +1,92 @@
 import {log} from '@roadmanjs/logs';
+import pickBy from 'lodash/pickBy';
+import identity from 'lodash/identity';
+import _get from 'lodash/get';
 import {awaitTo} from '@stoqey/client-graphql';
-import {Resolver, Query, UseMiddleware, Mutation, Arg, Ctx, createUpdate} from 'couchset';
+import {
+    Resolver,
+    Query,
+    UseMiddleware,
+    Mutation,
+    Arg,
+    Ctx,
+    createUpdate,
+    CouchbaseConnection,
+} from 'couchset';
 import {isAuth} from '@roadmanjs/auth';
-import {Post, PostModel, postSelectors} from '../model/Post.model';
+import {Post, PostModel, PostModelName} from '../model/Post.model';
 import {SocialResType, ContextType, getPagination} from '../../_shared/ContextType';
 
 const PostPagination = getPagination(Post);
 
 @Resolver()
 export class PostResolver {
-    // TODO myPosts and public posts
-
     @Query(() => PostPagination)
     @UseMiddleware(isAuth)
     async posts(
-        @Arg('filter', () => String, {nullable: true}) filter: string, // TODO filters
-        @Arg('owner', () => String, {nullable: false}) owner: string, // TODO use from context and not args
-        @Arg('page', () => Number, {nullable: true}) page: number,
-        @Arg('limit', () => Number, {nullable: true}) limit: number
-    ): Promise<Post[]> {
-        try {
-            const wherers: any = {
-                owner: {$eq: owner},
-                // visibility: {$neq: "draft"} // TODO for public or fetch my current user posts
-            };
+        @Ctx() ctx: ContextType,
+        @Arg('filter', () => String, {nullable: true}) filter?: string,
+        @Arg('sort', () => String, {nullable: true}) sortArg?: string,
+        @Arg('before', () => Date, {nullable: true}) before?: Date,
+        @Arg('after', () => Date, {nullable: true}) after?: Date,
+        @Arg('owner', () => String, {nullable: true}) ownerArg?: string,
+        @Arg('limit', () => Number, {nullable: true}) limitArg?: number
+    ): Promise<{items: Post[]; hasNext?: boolean; params?: any}> {
+        const owner = ownerArg || _get(ctx, 'payload.userId', '');
+        const bucket = CouchbaseConnection.Instance.bucketName;
+        const sign = before ? '<' : '>';
+        const time = before || after;
+        const sort = sortArg || 'DESC';
+        const limit = limitArg || 10;
 
-            const selectors = postSelectors;
-
-            const data = await PostModel.pagination({
-                select: selectors,
-                where: wherers,
+        const copyParams = pickBy(
+            {
+                sort,
+                filter,
+                before,
+                after,
+                owner,
                 limit,
-                page,
+            },
+            identity
+        );
+
+        try {
+            const query = `
+                SELECT *
+                    FROM \`${bucket}\` post
+                    WHERE post._type = "${PostModelName}"
+                    AND post.owner = "${owner}"
+                    AND post.createdAt ${sign} "${time.toISOString()}"
+                    ORDER BY post.createdAt ${sort}
+                    LIMIT ${limit};
+                `;
+
+            const [errorFetching, data = []] = await awaitTo(
+                PostModel.customQuery<any>({
+                    limit,
+                    query,
+                    params: copyParams,
+                })
+            );
+
+            if (errorFetching) {
+                throw errorFetching;
+            }
+
+            const [rows = []] = data;
+
+            const hasNext = rows.length - 1 >= limit;
+
+            const dataToSend = rows.map((d) => {
+                const {post} = d;
+                return PostModel.parse(post);
             });
 
-            return data;
+            return {items: dataToSend, params: copyParams, hasNext};
         } catch (error) {
-            log('error getting ads listing methods', error);
-            return [];
+            log('error getting posts', error);
+            return {items: [], hasNext: false, params: copyParams};
         }
     }
 
