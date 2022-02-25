@@ -34,8 +34,8 @@ export class PostResolver {
     ): Promise<{items: Post[]; hasNext?: boolean; params?: any}> {
         const owner = ownerArg || _get(ctx, 'payload.userId', '');
         const bucket = CouchbaseConnection.Instance.bucketName;
-        const sign = before ? '<' : '>';
-        const time = before || after;
+        const sign = before ? '<=' : '>=';
+        const time = new Date(before || after);
         const sort = sortArg || 'DESC';
         const limit = limitArg || 10;
 
