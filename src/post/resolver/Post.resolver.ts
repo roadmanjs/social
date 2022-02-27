@@ -77,7 +77,11 @@ export class PostResolver {
 
             const [rows = []] = data;
 
-            const hasNext = rows.length >= limit;
+            const hasNext = rows.length > limit;
+
+            if (hasNext) {
+                rows.pop(); // remove last element
+            }
 
             const dataToSend = rows.map((d) => {
                 const {post} = d;
