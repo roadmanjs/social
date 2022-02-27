@@ -38,6 +38,7 @@ export class PostResolver {
         const time = new Date(before || after);
         const sort = sortArg || 'DESC';
         const limit = limitArg || 10;
+        const limitPassed = limit + 1; // adding +1 for hasNext
 
         const copyParams = pickBy(
             {
@@ -59,12 +60,12 @@ export class PostResolver {
                     AND post.owner = "${owner}"
                     AND post.createdAt ${sign} "${time.toISOString()}"
                     ORDER BY post.createdAt ${sort}
-                    LIMIT ${limit};
+                    LIMIT ${limitPassed};
                 `;
 
             const [errorFetching, data = []] = await awaitTo(
                 PostModel.customQuery<any>({
-                    limit,
+                    limit: limitPassed,
                     query,
                     params: copyParams,
                 })
@@ -76,7 +77,7 @@ export class PostResolver {
 
             const [rows = []] = data;
 
-            const hasNext = rows.length - 1 >= limit;
+            const hasNext = rows.length >= limit;
 
             const dataToSend = rows.map((d) => {
                 const {post} = d;
